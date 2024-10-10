@@ -13,8 +13,9 @@ CREATE TABLE "tasks" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "content" TEXT NOT NULL,
+    "finished_at" TIMESTAMP(3),
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL,
+    "updated_at" TIMESTAMP(3),
     "author_id" TEXT NOT NULL,
 
     CONSTRAINT "tasks_pkey" PRIMARY KEY ("id")
