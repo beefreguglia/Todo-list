@@ -12,6 +12,8 @@
 - Turbo
 - Zod
 - Nest
+- Prisma
+- Dotenv-cli
 
 ## Requisitos funcionais
 
@@ -30,7 +32,7 @@
 ## Regras não-funcionais
 
 - [ ] A senha do usuário precisa estar criptografada;
-- [ ] Os dados da aplicação precisam estar persistidos em um banco PostgresSQL;
+- [x] Os dados da aplicação precisam estar persistidos em um banco PostgresSQL;
 - [ ] o usuário deve ser identificado por um JWT (JSON Web Token) ;
-- [ ] Devemos utilizar Nest junto do Prisma ORM para o back-end;
+- [x] Devemos utilizar Nest junto do Prisma ORM para o back-end;
 - [ ] Devemos utilizar Next para o front-end utilizando SSG ou SSR;
