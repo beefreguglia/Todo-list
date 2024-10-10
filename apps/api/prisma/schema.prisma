@@ -30,9 +30,9 @@ model Tasks {
   content   String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-  aurthorId String   @map("author_id")
+  authorId  String   @map("author_id")
 
-  author User @relation(fields: [aurthorId], references: [id])
+  author User @relation(fields: [authorId], references: [id])
 
   @@map("tasks")
 }
