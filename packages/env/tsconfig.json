@@ -1,0 +1,4 @@
+{
+  "extends": "@bf-to-do/ts-config/library.json",
+  "include": ["index.ts"]
+}
