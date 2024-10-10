@@ -1,5 +1,5 @@
 {
-  "name": "@bftodo/eslint-config",
+  "name": "@bf-to-do/eslint-config",
   "version": "0.0.0",
   "private": true,
   "files": [
@@ -8,10 +8,11 @@
     "node.js"
   ],
   "devDependencies": {
-    "@bftodo/prettier": "workspace:*",
+    "@bf-to-do/prettier": "workspace:*",
     "@rocketseat/eslint-config": "^2.2.2",
     "eslint-plugin-simple-import-sort": "^12.1.1"
   },
+  "prettier": "@bf-to-do/prettier",
   "eslintConfig": {
     "extends": ["./library.js"]
   }
