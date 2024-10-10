@@ -17,12 +17,12 @@
 
 ## Requisitos funcionais
 
-- [ ] Deve ser possível se cadastrar;
-- [ ] Deve ser possível se autenticar;
+- [x] Deve ser possível se cadastrar;
+- [x] Deve ser possível se autenticar;
 - [ ] Deve ser possível obter o perfil de um usuário logado;
-- [ ] Deve ser possível criar uma nova tarefa;
-- [ ] Deve ser possível ver todas as tarefas do próprio usuário;
-- [ ] Deve ser possível editar uma tarefa;
+- [x] Deve ser possível criar uma nova tarefa;
+- [x] Deve ser possível ver todas as tarefas do próprio usuário;
+- [x] Deve ser possível editar uma tarefa;
 - [ ] Deve ser possível deletar uma tarefa;
 
 ## Regras de negócio
@@ -36,3 +36,8 @@
 - [ ] o usuário deve ser identificado por um JWT (JSON Web Token) ;
 - [x] Devemos utilizar Nest junto do Prisma ORM para o back-end;
 - [ ] Devemos utilizar Next para o front-end utilizando SSG ou SSR;
+
+
+
+`openssl genpkey -algorithm RSA -out private_key.pem -pkeyopt rsa_keygen_bits:2048`
+`openssl rsa -pubout -in private_key.pem -out public_key.pem`

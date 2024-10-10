@@ -6,6 +6,7 @@ import { AuthenticateController } from './controllers/authenticate.controller'
 import { CreateAccountController } from './controllers/create-account.controller'
 import { CreateTaskController } from './controllers/create-task.controller'
 import { FetchTaskController } from './controllers/fetch-recent-tasks.controller'
+import { RemoveTaskController } from './controllers/remove-task.controller'
 import { UpdateTaskController } from './controllers/update-task.controller'
 import { envSchema } from './env'
 import { PrismaService } from './prisma/prisma.service'
@@ -24,6 +25,7 @@ import { PrismaService } from './prisma/prisma.service'
     CreateTaskController,
     FetchTaskController,
     UpdateTaskController,
+    RemoveTaskController,
   ],
   providers: [PrismaService],
 })
