@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common'
+import { Body, Controller, HttpCode, Post, UseGuards } from '@nestjs/common'
 import { CurrentUser } from 'src/auth/current-user-decorator'
 import { UserPayload } from 'src/auth/jwt.strategy'
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
@@ -21,6 +21,7 @@ export class CreateTaskController {
   constructor(private prisma: PrismaService) {}
 
   @Post()
+  @HttpCode(201)
   async handle(
     @Body(bodyValidationPipe) body: CreateTaskBodySchema,
     @CurrentUser() user: UserPayload,
