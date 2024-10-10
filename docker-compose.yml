@@ -1,0 +1,15 @@
+services:
+  postgres:
+    container_name: bf-to-do-pg
+    image: "bitnami/postgresql:latest"
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRESQL_USERNAME: postgres
+      POSTGRESQL_PASSWORD: postgres
+      POSTGRESQL_DATABASE: bf-to-do
+    volumes:
+      - bf-to-do-db-api:/var/lib/postgresql/data
+
+volumes:
+  bf-to-do-db-api:
