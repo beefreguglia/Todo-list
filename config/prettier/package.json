@@ -1,5 +1,5 @@
 {
-  "name": "@bftodo/prettier",
+  "name": "@bf-to-do/prettier",
   "version": "0.0.0",
   "main": "index.mjs",
   "private": true,
