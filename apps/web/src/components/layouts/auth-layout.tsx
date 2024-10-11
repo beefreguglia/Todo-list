@@ -1,4 +1,7 @@
-import { ReactNode } from 'react'
+import { useRouter } from 'next/router'
+import { ReactNode, useEffect } from 'react'
+
+import { isAuthenticated } from '@/lib/auth'
 
 interface AuthLayoutProps {
   children: ReactNode
@@ -10,6 +13,14 @@ export default function AuthLayout({
   title,
   description,
 }: AuthLayoutProps) {
+  const router = useRouter()
+
+  useEffect(() => {
+    if (isAuthenticated(null)) {
+      router.push('/')
+    }
+  }, [router])
+
   return (
     <main className="grid min-h-screen grid-cols-1 gap-5 overflow-hidden bg-slate-950 p-5 lg:grid-cols-[1fr_30rem]">
       <div className="w-full rounded-md">{children}</div>

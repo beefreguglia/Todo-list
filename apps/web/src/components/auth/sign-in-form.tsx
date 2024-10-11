@@ -1,10 +1,15 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Plus, SignIn } from '@phosphor-icons/react'
+import { useMutation } from '@tanstack/react-query'
+import axios from 'axios'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { z } from 'zod'
 
+import { signIn } from '@/api/sign-in'
 import { Label } from '@/components/ui/label'
+import { setAuthTokenCookie } from '@/lib/auth'
 
 import { Button } from '../ui/button'
 import { ErrorMessage } from '../ui/error-message'
@@ -26,8 +31,24 @@ export function SignInForm() {
     resolver: zodResolver(signInFormSchema),
   })
 
+  const { mutateAsync: authenticate } = useMutation({
+    mutationFn: signIn,
+  })
+
   async function handleSignIn({ email, password }: SignInFormData) {
-    console.log(email, password)
+    try {
+      const { access_token } = await authenticate({ email, password })
+
+      setAuthTokenCookie(null, access_token)
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        const error = err.response?.data
+        toast.error(`${error.statusCode} ${error.error}: ${error.message}`)
+      } else {
+        toast.error('Ocorreu um erro inesperado.')
+        console.error(err)
+      }
+    }
   }
 
   return (
