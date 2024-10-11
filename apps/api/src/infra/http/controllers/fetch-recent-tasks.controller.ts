@@ -1,12 +1,19 @@
-import { Controller, Get, Query, UseGuards } from '@nestjs/common'
+import {
+  BadRequestException,
+  Controller,
+  Get,
+  Query,
+  UseGuards,
+} from '@nestjs/common'
 import { z } from 'zod'
 
 import { FetchRecentTasksUseCase } from '@/domain/to-do/application/use-cases/fetch-recent-tasks'
 import { CurrentUser } from '@/infra/auth/current-user-decorator'
 import { UserPayload } from '@/infra/auth/jwt.strategy'
 import { JwtAuthGuard } from '@/infra/auth/jwt-auth.guard'
-import { PrismaTaskMapper } from '@/infra/database/prisma/mappers/prisma-task-mapper'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
+
+import { TaskPresenter } from '../presenters/task-presenter'
 
 const pageQueryParamSchema = z
   .string()
@@ -31,17 +38,19 @@ export class FetchTaskController {
   ) {
     const { sub: userId } = user
 
-    const data = await this.fetchRecentTasks.execute({
+    const result = await this.fetchRecentTasks.execute({
       page,
       userId,
     })
 
-    const tasks = data.value?.tasks.map((task) =>
-      PrismaTaskMapper.toPrisma(task),
-    )
+    if (result.isLeft()) {
+      throw new BadRequestException()
+    }
+
+    const { tasks } = result.value
 
     return {
-      tasks,
+      tasks: tasks.map((task) => TaskPresenter.toHTTP(task)),
     }
   }
 }

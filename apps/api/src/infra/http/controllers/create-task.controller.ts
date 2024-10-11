@@ -1,4 +1,11 @@
-import { Body, Controller, HttpCode, Post, UseGuards } from '@nestjs/common'
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  HttpCode,
+  Post,
+  UseGuards,
+} from '@nestjs/common'
 import { z } from 'zod'
 
 import { CreateTaskUseCase } from '@/domain/to-do/application/use-cases/create-task'
@@ -30,10 +37,14 @@ export class CreateTaskController {
     const { content, title } = body
     const { sub: userId } = user
 
-    await this.createTask.execute({
+    const result = await this.createTask.execute({
       authorId: userId,
       content,
       title,
     })
+
+    if (result.isLeft()) {
+      throw new BadRequestException()
+    }
   }
 }
