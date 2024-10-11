@@ -1,5 +1,5 @@
 import { PaginationParams } from '@/core/repositories/pagination-params'
-import { Task } from '@/domain/tasks/enterprise/entities/task'
+import { Task } from '@/domain/to-do/enterprise/entities/task'
 
 export interface TasksRepository {
   findById(id: string): Promise<Task | null>

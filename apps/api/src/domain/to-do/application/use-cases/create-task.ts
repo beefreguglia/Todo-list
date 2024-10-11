@@ -1,6 +1,6 @@
 import { Either, right } from '@/core/either'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Task } from '@/domain/tasks/enterprise/entities/task'
+import { Task } from '@/domain/to-do/enterprise/entities/task'
 
 import { TasksRepository } from '../repositories/tasks-repository'
 

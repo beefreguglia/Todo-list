@@ -1,7 +1,7 @@
 import { Either, left, right } from '@/core/either'
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error'
 import { ResourceNotFoundError } from '@/core/errors/errors/resource-not-found-error'
-import { Task } from '@/domain/tasks/enterprise/entities/task'
+import { Task } from '@/domain/to-do/enterprise/entities/task'
 
 import { TasksRepository } from '../repositories/tasks-repository'
 

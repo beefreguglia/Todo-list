@@ -1,7 +1,7 @@
 import { DomainEvents } from '@/core/events/domain-events'
 import { PaginationParams } from '@/core/repositories/pagination-params'
-import { TasksRepository } from '@/domain/tasks/application/repositories/tasks-repository'
-import { Task } from '@/domain/tasks/enterprise/entities/task'
+import { TasksRepository } from '@/domain/to-do/application/repositories/tasks-repository'
+import { Task } from '@/domain/to-do/enterprise/entities/task'
 
 export class InMemoryTasksRepository implements TasksRepository {
   public items: Task[] = []

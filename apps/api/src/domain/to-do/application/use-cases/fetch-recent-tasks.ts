@@ -1,5 +1,5 @@
 import { Either, right } from '@/core/either'
-import { Task } from '@/domain/tasks/enterprise/entities/task'
+import { Task } from '@/domain/to-do/enterprise/entities/task'
 
 import { TasksRepository } from '../repositories/tasks-repository'
 
