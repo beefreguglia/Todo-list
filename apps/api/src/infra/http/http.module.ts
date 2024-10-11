@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
 
-import { PrismaService } from '../prisma/prisma.service'
+import { DatabaseModule } from '../database/database.module'
 import { AuthenticateController } from './controllers/authenticate.controller'
 import { CreateAccountController } from './controllers/create-account.controller'
 import { CreateTaskController } from './controllers/create-task.controller'
@@ -9,6 +9,7 @@ import { RemoveTaskController } from './controllers/remove-task.controller'
 import { UpdateTaskController } from './controllers/update-task.controller'
 
 @Module({
+  imports: [DatabaseModule],
   controllers: [
     CreateAccountController,
     AuthenticateController,
@@ -17,6 +18,5 @@ import { UpdateTaskController } from './controllers/update-task.controller'
     UpdateTaskController,
     RemoveTaskController,
   ],
-  providers: [PrismaService],
 })
 export class HttpModule {}

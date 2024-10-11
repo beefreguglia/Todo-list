@@ -4,7 +4,7 @@ import request from 'supertest'
 import { beforeAll, describe, expect, test } from 'vitest'
 
 import { AppModule } from '@/infra/app.module'
-import { PrismaService } from '@/infra/prisma/prisma.service'
+import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 describe('Create account (E2E)', () => {
   let app: INestApplication
