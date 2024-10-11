@@ -4,10 +4,25 @@ import { PaginationParams } from '@/core/repositories/pagination-params'
 import { TasksRepository } from '@/domain/to-do/application/repositories/tasks-repository'
 import { Task } from '@/domain/to-do/enterprise/entities/task'
 
+import { PrismaTaskMapper } from '../mappers/prisma-task-mapper'
+import { PrismaService } from '../prisma.service'
+
 @Injectable()
 export class PrismaTasksRepository implements TasksRepository {
-  findById(id: string): Promise<Task | null> {
-    throw new Error('Method not implemented.')
+  constructor(private prisma: PrismaService) {}
+
+  async findById(id: string): Promise<Task | null> {
+    const task = await this.prisma.tasks.findUnique({
+      where: {
+        id,
+      },
+    })
+
+    if (!task) {
+      return null
+    }
+
+    return PrismaTaskMapper.toDomain(task)
   }
 
   findManyRecent(params: PaginationParams): Promise<Task[]> {

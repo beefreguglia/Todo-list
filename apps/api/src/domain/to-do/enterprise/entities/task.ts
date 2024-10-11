@@ -7,8 +7,8 @@ export interface TaskProps {
   title: string
   content: string
   createdAt: Date
-  updatedAt?: Date
-  finishedAt?: Date
+  updatedAt?: Date | null
+  finishedAt?: Date | null
 }
 
 export class Task extends AggregateRoot<TaskProps> {
