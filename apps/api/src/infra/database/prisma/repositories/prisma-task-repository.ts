@@ -7,6 +7,8 @@ import { Task } from '@/domain/to-do/enterprise/entities/task'
 import { PrismaTaskMapper } from '../mappers/prisma-task-mapper'
 import { PrismaService } from '../prisma.service'
 
+const PER_PAGE = 20
+
 @Injectable()
 export class PrismaTasksRepository implements TasksRepository {
   constructor(private prisma: PrismaService) {}
@@ -25,19 +27,50 @@ export class PrismaTasksRepository implements TasksRepository {
     return PrismaTaskMapper.toDomain(task)
   }
 
-  findManyRecent(params: PaginationParams): Promise<Task[]> {
-    throw new Error('Method not implemented.')
+  async findManyRecent(
+    { page }: PaginationParams,
+    id: string,
+  ): Promise<Task[]> {
+    const tasks = await this.prisma.tasks.findMany({
+      where: {
+        authorId: id,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+      take: PER_PAGE,
+      skip: (page - 1) * PER_PAGE,
+    })
+
+    return tasks.map((task) => PrismaTaskMapper.toDomain(task))
   }
 
-  create(task: Task): Promise<void> {
-    throw new Error('Method not implemented.')
+  async create(task: Task): Promise<void> {
+    const data = PrismaTaskMapper.toPrisma(task)
+
+    await this.prisma.tasks.create({
+      data,
+    })
   }
 
-  save(task: Task): Promise<void> {
-    throw new Error('Method not implemented.')
+  async save(task: Task): Promise<void> {
+    const data = PrismaTaskMapper.toPrisma(task)
+
+    await this.prisma.tasks.update({
+      where: {
+        id: data.id,
+      },
+      data,
+    })
   }
 
-  delete(task: Task): Promise<void> {
-    throw new Error('Method not implemented.')
+  async delete(task: Task): Promise<void> {
+    const data = PrismaTaskMapper.toPrisma(task)
+
+    await this.prisma.tasks.delete({
+      where: {
+        id: data.id,
+      },
+    })
   }
 }

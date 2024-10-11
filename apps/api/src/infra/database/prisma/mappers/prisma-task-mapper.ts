@@ -1,4 +1,4 @@
-import { Tasks as PrismaTask } from '@prisma/client'
+import { Prisma, Tasks as PrismaTask } from '@prisma/client'
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Task } from '@/domain/to-do/enterprise/entities/task'
@@ -16,5 +16,17 @@ export class PrismaTaskMapper {
       },
       new UniqueEntityID(raw.id),
     )
+  }
+
+  static toPrisma(task: Task): Prisma.TasksUncheckedCreateInput {
+    return {
+      id: task.id.toString(),
+      content: task.content,
+      title: task.title,
+      createdAt: task.createdAt,
+      updatedAt: task.updatedAt,
+      finishedAt: task.finishedAt,
+      authorId: task.authorId.toString(),
+    }
   }
 }

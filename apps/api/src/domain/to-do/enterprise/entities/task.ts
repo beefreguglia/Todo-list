@@ -47,6 +47,11 @@ export class Task extends AggregateRoot<TaskProps> {
     return this.props.finishedAt
   }
 
+  set finishedAt(content: Date | null | undefined) {
+    this.props.finishedAt = content
+    this.touch()
+  }
+
   private touch() {
     this.props.updatedAt = new Date()
   }

@@ -1,11 +1,12 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common'
 import { z } from 'zod'
 
+import { FetchRecentTasksUseCase } from '@/domain/to-do/application/use-cases/fetch-recent-tasks'
 import { CurrentUser } from '@/infra/auth/current-user-decorator'
 import { UserPayload } from '@/infra/auth/jwt.strategy'
 import { JwtAuthGuard } from '@/infra/auth/jwt-auth.guard'
+import { PrismaTaskMapper } from '@/infra/database/prisma/mappers/prisma-task-mapper'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
-import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 const pageQueryParamSchema = z
   .string()
@@ -18,12 +19,10 @@ type pageQueryParamSchema = z.infer<typeof pageQueryParamSchema>
 
 const queryValidationPipe = new ZodValidationPipe(pageQueryParamSchema)
 
-const PER_PAGE = 20
-
 @Controller('/tasks')
 @UseGuards(JwtAuthGuard)
 export class FetchTaskController {
-  constructor(private prisma: PrismaService) {}
+  constructor(private fetchRecentTasks: FetchRecentTasksUseCase) {}
 
   @Get()
   async handle(
@@ -31,24 +30,15 @@ export class FetchTaskController {
     @Query('page', queryValidationPipe) page: pageQueryParamSchema,
   ) {
     const { sub: userId } = user
-    const tasks = await this.prisma.tasks.findMany({
-      take: PER_PAGE,
-      skip: (page - 1) * PER_PAGE,
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        createdAt: true,
-        updatedAt: true,
-        finishedAt: true,
-      },
-      where: {
-        authorId: userId,
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
+
+    const data = await this.fetchRecentTasks.execute({
+      page,
+      userId,
     })
+
+    const tasks = data.value?.tasks.map((task) =>
+      PrismaTaskMapper.toPrisma(task),
+    )
 
     return {
       tasks,

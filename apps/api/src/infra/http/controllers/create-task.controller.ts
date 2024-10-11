@@ -1,11 +1,11 @@
 import { Body, Controller, HttpCode, Post, UseGuards } from '@nestjs/common'
 import { z } from 'zod'
 
+import { CreateTaskUseCase } from '@/domain/to-do/application/use-cases/create-task'
 import { CurrentUser } from '@/infra/auth/current-user-decorator'
 import { UserPayload } from '@/infra/auth/jwt.strategy'
 import { JwtAuthGuard } from '@/infra/auth/jwt-auth.guard'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
-import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 const createTaskBodySchema = z.object({
   title: z.string(),
@@ -19,7 +19,7 @@ const bodyValidationPipe = new ZodValidationPipe(createTaskBodySchema)
 @Controller('/tasks')
 @UseGuards(JwtAuthGuard)
 export class CreateTaskController {
-  constructor(private prisma: PrismaService) {}
+  constructor(private createTask: CreateTaskUseCase) {}
 
   @Post()
   @HttpCode(201)
@@ -30,12 +30,10 @@ export class CreateTaskController {
     const { content, title } = body
     const { sub: userId } = user
 
-    await this.prisma.tasks.create({
-      data: {
-        authorId: userId,
-        content,
-        title,
-      },
+    await this.createTask.execute({
+      authorId: userId,
+      content,
+      title,
     })
   }
 }

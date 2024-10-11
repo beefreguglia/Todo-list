@@ -1,11 +1,11 @@
 import { Controller, Delete, HttpCode, Param, UseGuards } from '@nestjs/common'
 import { z } from 'zod'
 
+import { DeleteTaskUseCase } from '@/domain/to-do/application/use-cases/delete-task'
 import { CurrentUser } from '@/infra/auth/current-user-decorator'
 import { UserPayload } from '@/infra/auth/jwt.strategy'
 import { JwtAuthGuard } from '@/infra/auth/jwt-auth.guard'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
-import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 const removeTaskParamSchema = z.object({
   id: z.string(),
@@ -18,7 +18,7 @@ const paramValidationPipe = new ZodValidationPipe(removeTaskParamSchema)
 @Controller('/tasks/:id')
 @UseGuards(JwtAuthGuard)
 export class RemoveTaskController {
-  constructor(private prisma: PrismaService) {}
+  constructor(private deleteTask: DeleteTaskUseCase) {}
 
   @Delete()
   @HttpCode(204)
@@ -29,11 +29,6 @@ export class RemoveTaskController {
     const { id } = param
     const { sub: userId } = user
 
-    await this.prisma.tasks.delete({
-      where: {
-        id,
-        authorId: userId,
-      },
-    })
+    await this.deleteTask.execute({ authorId: userId, taskId: id })
   }
 }

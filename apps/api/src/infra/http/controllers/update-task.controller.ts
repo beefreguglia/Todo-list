@@ -8,11 +8,11 @@ import {
 } from '@nestjs/common'
 import { z } from 'zod'
 
+import { EditTaskUseCase } from '@/domain/to-do/application/use-cases/edit-task'
 import { CurrentUser } from '@/infra/auth/current-user-decorator'
 import { UserPayload } from '@/infra/auth/jwt.strategy'
 import { JwtAuthGuard } from '@/infra/auth/jwt-auth.guard'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
-import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 const updateTaskBodySchema = z.object({
   title: z.string(),
@@ -34,7 +34,7 @@ const paramValidationPipe = new ZodValidationPipe(updateTaskParamSchema)
 @Controller('/tasks/:id')
 @UseGuards(JwtAuthGuard)
 export class UpdateTaskController {
-  constructor(private prisma: PrismaService) {}
+  constructor(private editTask: EditTaskUseCase) {}
 
   @Put()
   @HttpCode(204)
@@ -47,15 +47,12 @@ export class UpdateTaskController {
     const { id } = param
     const { sub: userId } = user
 
-    await this.prisma.tasks.update({
-      data: {
-        content,
-        title,
-      },
-      where: {
-        id,
-        authorId: userId,
-      },
+    await this.editTask.execute({
+      taskId: id,
+      authorId: userId,
+      content,
+      finishedAt: null,
+      title,
     })
   }
 }

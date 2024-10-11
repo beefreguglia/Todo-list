@@ -14,6 +14,8 @@
 - Nest
 - Prisma
 - Dotenv-cli
+- Vitest
+- SWC
 
 ## Requisitos funcionais
 
@@ -23,7 +25,7 @@
 - [x] Deve ser possível criar uma nova tarefa;
 - [x] Deve ser possível ver todas as tarefas do próprio usuário;
 - [x] Deve ser possível editar uma tarefa;
-- [ ] Deve ser possível deletar uma tarefa;
+- [x] Deve ser possível deletar uma tarefa;
 
 ## Regras de negócio
 

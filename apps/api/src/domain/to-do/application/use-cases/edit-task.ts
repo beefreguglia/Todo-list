@@ -1,3 +1,5 @@
+import { Injectable } from '@nestjs/common'
+
 import { Either, left, right } from '@/core/either'
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error'
 import { ResourceNotFoundError } from '@/core/errors/errors/resource-not-found-error'
@@ -10,7 +12,7 @@ interface EditTaskUseCaseRequest {
   taskId: string
   title: string
   content: string
-  attachmentsIds: string[]
+  finishedAt: Date | null | undefined
 }
 
 type EditTaskUseCaseResponse = Either<
@@ -20,6 +22,7 @@ type EditTaskUseCaseResponse = Either<
   }
 >
 
+@Injectable()
 export class EditTaskUseCase {
   constructor(private tasksRepository: TasksRepository) {}
 
@@ -28,6 +31,7 @@ export class EditTaskUseCase {
     taskId,
     title,
     content,
+    finishedAt,
   }: EditTaskUseCaseRequest): Promise<EditTaskUseCaseResponse> {
     const task = await this.tasksRepository.findById(taskId)
 
@@ -41,6 +45,7 @@ export class EditTaskUseCase {
 
     task.title = title
     task.content = content
+    task.finishedAt = finishedAt
 
     await this.tasksRepository.save(task)
 
