@@ -7,7 +7,6 @@ import { Task } from '@/components/home/task'
 
 interface TaskWithChecked {
   taskId: string
-  title: string
   content: string
   createdAt: Date
   updatedAt?: Date | null
@@ -38,7 +37,6 @@ export function TodoList() {
       const data: TaskWithChecked[] =
         tasks?.map((task) => ({
           content: task.content,
-          title: task.title,
           createdAt: task.createdAt,
           finishedAt: task.finishedAt,
           checked: task?.finishedAt !== null,
@@ -58,7 +56,7 @@ export function TodoList() {
           {fields &&
             fields.map(
               (
-                { content, title, createdAt, finishedAt, id, checked, taskId },
+                { content, createdAt, finishedAt, id, checked, taskId },
                 index,
               ) => (
                 <Task
@@ -68,7 +66,6 @@ export function TodoList() {
                     taskId,
                     createdAt,
                     checked,
-                    title,
                     finishedAt,
                     id,
                     fieldIndex: index,

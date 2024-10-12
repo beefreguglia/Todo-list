@@ -6,7 +6,6 @@ import { OptionsButton } from '../ui/options-button'
 
 interface TaskProps {
   task: {
-    title: string
     content: string
     createdAt: Date
     finishedAt?: Date | null

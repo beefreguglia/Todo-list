@@ -1,5 +1,6 @@
 import { Check, HouseLine } from '@phosphor-icons/react'
 
+import { CreateNewTaskButton } from './create-new-task-button'
 import { LogOutButton } from './logout-button'
 import { SidebarButton } from './sidebar-item'
 
@@ -13,8 +14,9 @@ export function Sidebar() {
           Home
         </SidebarButton>
         <SidebarButton icon={<Check weight="bold" />}>Concluídos</SidebarButton>
+        <CreateNewTaskButton />
       </div>
-      <footer className="absolute bottom-8 w-[18.5rem]">
+      <footer className="absolute bottom-8 flex w-[18.5rem] flex-col gap-4">
         <LogOutButton />
       </footer>
     </aside>

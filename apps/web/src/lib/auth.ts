@@ -5,7 +5,7 @@ export function setAuthTokenCookie(
   ctx: NextPageContext | null,
   token: string,
 ): void {
-  setCookie(ctx, 'todo-token', token, {
+  setCookie(ctx, 'todoToken', token, {
     maxAge: 7 * 24 * 60 * 60, // 7 days
     path: '/',
     HttpOnly: true,
@@ -18,11 +18,11 @@ export function getAuthTokenCookie(
   ctx: NextPageContext | null,
 ): string | undefined {
   const cookies = parseCookies(ctx)
-  return cookies['todo-token']
+  return cookies.todoToken
 }
 
 export function removeAuthTokenCookie(ctx: NextPageContext | null): void {
-  destroyCookie(ctx, 'todo-token', {
+  destroyCookie(ctx, 'todoToken', {
     path: '/',
   })
 }

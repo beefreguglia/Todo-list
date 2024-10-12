@@ -3,7 +3,6 @@ import { api } from '@/lib/axios'
 export interface TaskData {
   id: string
   authorId: string
-  title: string
   content: string
   createdAt: Date
   updatedAt?: Date | null
