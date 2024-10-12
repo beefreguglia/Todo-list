@@ -44,7 +44,7 @@
 - [x] Os dados da aplicação precisam estar persistidos em um banco PostgresSQL;
 - [x] o usuário deve ser identificado por um JWT (JSON Web Token) ;
 - [x] Devemos utilizar Nest junto do Prisma ORM para o back-end;
-- [ ] Devemos utilizar Next para o front-end utilizando SSG ou SSR;
+- [x] Devemos utilizar Next para o front-end utilizando SSG ou SSR;
 
 
 

@@ -35,9 +35,14 @@ export class PrismaTasksRepository implements TasksRepository {
       where: {
         authorId: id,
       },
-      orderBy: {
-        createdAt: 'desc',
-      },
+      orderBy: [
+        {
+          finishedAt: 'desc',
+        },
+        {
+          createdAt: 'desc',
+        },
+      ],
       take: PER_PAGE,
       skip: (page - 1) * PER_PAGE,
     })

@@ -16,6 +16,7 @@ import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
 const updateTaskBodySchema = z.object({
   content: z.string(),
+  finished_at: z.string().optional().nullable(),
 })
 
 type UpdateTaskBodySchema = z.infer<typeof updateTaskBodySchema>
@@ -42,7 +43,7 @@ export class UpdateTaskController {
     @Param(paramValidationPipe) param: UpdateTaskParamSchema,
     @CurrentUser() user: UserPayload,
   ) {
-    const { content } = body
+    const { content, finished_at } = body
     const { id } = param
     const { sub: userId } = user
 
@@ -50,7 +51,7 @@ export class UpdateTaskController {
       taskId: id,
       authorId: userId,
       content,
-      finishedAt: null,
+      finishedAt: finished_at ? new Date(finished_at) : null,
     })
   }
 }

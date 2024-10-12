@@ -37,7 +37,6 @@ export class FetchTaskController {
     @Query('page', queryValidationPipe) page: pageQueryParamSchema,
   ) {
     const { sub: userId } = user
-
     const result = await this.fetchRecentTasks.execute({
       page,
       userId,
