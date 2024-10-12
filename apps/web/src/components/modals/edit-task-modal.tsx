@@ -33,20 +33,20 @@ export function EditTaskModal({ handleCloseModal, id }: EditTaskModalProps) {
     resolver: zodResolver(editTaskSchema),
   })
 
-  const { mutateAsync: registerTask } = useMutation({
+  const { mutateAsync: updateTask } = useMutation({
     mutationFn: editTask,
   })
 
   async function handleEditTask({ content }: EditTaskFormData) {
     try {
-      await registerTask({ content, id })
+      await updateTask({ content, id })
 
       queryClient.invalidateQueries({
         queryKey: ['tasks'],
       })
 
       handleCloseModal()
-      toast.success('Task criada com sucesso!')
+      toast.success('Task editada com sucesso!')
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
         const error = err.response?.data
