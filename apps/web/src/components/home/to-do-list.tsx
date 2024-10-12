@@ -1,11 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
-import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form'
 
 import { getTasks, TaskData } from '@/api/getTasks'
-import { Pagination } from '@/components/ui/pagination'
-import { Task } from '@/components/ui/task'
+import { Task } from '@/components/home/task'
 
 interface TaskWithChecked {
   taskId: string
@@ -18,9 +16,6 @@ interface TaskWithChecked {
 }
 
 export function TodoList() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-
   const { data: tasks } = useQuery<TaskData[]>({
     queryKey: ['tasks', 0],
     queryFn: () => getTasks({ page: 1 }),
@@ -31,18 +26,12 @@ export function TodoList() {
       tasks: [] as TaskWithChecked[],
     },
   })
-  const { control } = methods
+  const { control, reset } = methods
 
   const { fields, append } = useFieldArray({
     control,
     name: 'tasks',
   })
-
-  function handlePaginate(pageIndex: number) {
-    const newSearchParams = new URLSearchParams(searchParams)
-    newSearchParams.set('page', (pageIndex + 1).toString())
-    router.push(`/?${newSearchParams.toString()}`)
-  }
 
   useEffect(() => {
     if (tasks && tasks?.length > 0) {
@@ -55,14 +44,9 @@ export function TodoList() {
           checked: task?.finishedAt !== null,
           taskId: task.id,
         })) ?? []
+      reset({ tasks: [] })
       data.forEach((task) => {
-        const taskIdExists = fields.some(
-          (field) => field.taskId === task.taskId,
-        )
-
-        if (!taskIdExists) {
-          append(task)
-        }
+        append(task)
       })
     }
   }, [tasks])
@@ -74,13 +58,14 @@ export function TodoList() {
           {fields &&
             fields.map(
               (
-                { content, title, createdAt, finishedAt, id, checked },
+                { content, title, createdAt, finishedAt, id, checked, taskId },
                 index,
               ) => (
                 <Task
                   key={id}
                   task={{
                     content,
+                    taskId,
                     createdAt,
                     checked,
                     title,
@@ -93,14 +78,14 @@ export function TodoList() {
             )}
         </form>
       </FormProvider>
-      {tasks && (
+      {/* {tasks && (
         <Pagination
           onPageChange={handlePaginate}
           pageIndex={0}
           totalCount={10}
           perPage={10}
         />
-      )}
+      )} */}
     </>
   )
 }

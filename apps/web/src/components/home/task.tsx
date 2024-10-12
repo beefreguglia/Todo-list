@@ -2,7 +2,7 @@ import { Controller, useFormContext } from 'react-hook-form'
 
 import { Checkbox } from '@/components/ui/checkbox'
 
-import { OptionsButton } from './options-button'
+import { OptionsButton } from '../ui/options-button'
 
 interface TaskProps {
   task: {
@@ -13,6 +13,7 @@ interface TaskProps {
     checked: boolean
     id: string
     fieldIndex: number
+    taskId: string
   }
 }
 
@@ -37,7 +38,7 @@ export function Task({ task }: TaskProps) {
           )}
         />
 
-        <OptionsButton />
+        <OptionsButton id={task.taskId} />
       </div>
     </div>
   )

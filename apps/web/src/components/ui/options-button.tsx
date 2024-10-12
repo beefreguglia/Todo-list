@@ -1,21 +1,56 @@
-import { DotsThreeVertical } from '@phosphor-icons/react'
+import { DotsThreeVertical, Pencil, Trash } from '@phosphor-icons/react'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+import { useMutation } from '@tanstack/react-query'
+import axios from 'axios'
+import { toast } from 'sonner'
 
-export function OptionsButton() {
+import { deleteTask } from '@/api/deleteTask'
+import { queryClient } from '@/lib/react-query'
+
+interface OptionsButtonProps {
+  id: string
+}
+
+export function OptionsButton({ id }: OptionsButtonProps) {
+  const { mutateAsync: remove } = useMutation({
+    mutationFn: deleteTask,
+  })
+
+  async function handleDeleteTask(id: string) {
+    try {
+      await remove({ id })
+      queryClient.invalidateQueries({ queryKey: ['tasks'] })
+      toast.success('Tarefa removida com sucesso!')
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        const error = err.response?.data
+        toast.error(`${error.statusCode} ${error.error}: ${error.message}`)
+      } else {
+        toast.error('Ocorreu um erro inesperado.')
+        console.error(err)
+      }
+    }
+  }
+
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
-        <button className="rounded-md bg-slate-900 p-1">
-          <DotsThreeVertical className="h-4 w-4" />
+        <button className="rounded-md bg-slate-900 transition-colors hover:bg-slate-700">
+          <DotsThreeVertical className="h-5 w-5 text-slate-100" weight="bold" />
         </button>
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Portal>
-        <DropdownMenu.Content className="overflow-hidden rounded-lg border border-slate-950 bg-slate-800 px-1 py-2 shadow-md shadow-slate-800">
-          <DropdownMenu.Item className="w-full cursor-pointer rounded-md px-2 py-1 text-slate-200 hover:bg-slate-950">
+        <DropdownMenu.Content className="flex flex-col gap-1 overflow-hidden rounded-lg border border-slate-950 bg-slate-800 p-1 shadow-md shadow-slate-800">
+          <DropdownMenu.Item className="flex w-full cursor-pointer items-center gap-2 rounded-md p-2 text-slate-200 hover:bg-slate-950">
+            <Pencil weight="bold" className="h-4 w-4" />
             Editar
           </DropdownMenu.Item>
-          <DropdownMenu.Item className="w-full cursor-pointer rounded-md px-2 py-1 text-rose-800 hover:bg-slate-950">
+          <DropdownMenu.Item
+            onClick={() => handleDeleteTask(id)}
+            className="flex w-full cursor-pointer items-center gap-2 rounded-md bg-rose-800 p-2 text-slate-200 hover:bg-rose-700"
+          >
+            <Trash weight="bold" className="h-4 w-4" />
             Deletar
           </DropdownMenu.Item>
           <DropdownMenu.Separator />
