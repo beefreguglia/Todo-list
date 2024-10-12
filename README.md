@@ -16,6 +16,14 @@
 - Dotenv-cli
 - Vitest
 - SWC
+- React
+- Next
+- React Hook Form
+- Tailwind
+- Axios
+- Phosphor-icons
+- @tanstack/react-query
+- Nookies
 
 ## Requisitos funcionais
 

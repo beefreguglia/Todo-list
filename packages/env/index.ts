@@ -8,13 +8,16 @@ export const env = createEnv({
     JWT_PRIVATE_SECRET: z.string(),
     JWT_PUBLIC_SECRET: z.string(),
   },
-  client: {},
+  client: {
+    NEXT_PUBLIC_API_URL: z.string(),
+  },
   shared: {},
   runtimeEnv: {
     PORT: process.env.PORT,
     DATABASE_URL: process.env.DATABASE_URL,
     JWT_PRIVATE_SECRET: process.env.JWT_PRIVATE_SECRET,
     JWT_PUBLIC_SECRET: process.env.JWT_PUBLIC_SECRET,
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
   },
   emptyStringAsUndefined: true,
 })
