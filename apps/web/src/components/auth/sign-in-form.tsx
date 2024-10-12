@@ -83,7 +83,7 @@ export function SignInForm() {
         href="/sign-up"
       >
         <Plus weight="bold" />
-        Voltar para página de login
+        Criar nova conta
       </Link>
       <Button disabled={isSubmitting}>
         <SignIn className="h-4 w-4" weight="bold" />
