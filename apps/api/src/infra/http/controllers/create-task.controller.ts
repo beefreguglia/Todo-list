@@ -15,7 +15,6 @@ import { JwtAuthGuard } from '@/infra/auth/jwt-auth.guard'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
 const createTaskBodySchema = z.object({
-  title: z.string(),
   content: z.string(),
 })
 
@@ -34,13 +33,12 @@ export class CreateTaskController {
     @Body(bodyValidationPipe) body: CreateTaskBodySchema,
     @CurrentUser() user: UserPayload,
   ) {
-    const { content, title } = body
+    const { content } = body
     const { sub: userId } = user
 
     const result = await this.createTask.execute({
       authorId: userId,
       content,
-      title,
     })
 
     if (result.isLeft()) {

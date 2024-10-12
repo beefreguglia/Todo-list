@@ -8,7 +8,6 @@ import { TasksRepository } from '../repositories/tasks-repository'
 
 interface CreateTaskUseCaseRequest {
   authorId: string
-  title: string
   content: string
 }
 
@@ -25,12 +24,10 @@ export class CreateTaskUseCase {
 
   async execute({
     authorId,
-    title,
     content,
   }: CreateTaskUseCaseRequest): Promise<CreateTaskUseCaseResponse> {
     const task = Task.create({
       authorId: new UniqueEntityID(authorId),
-      title,
       content,
     })
 

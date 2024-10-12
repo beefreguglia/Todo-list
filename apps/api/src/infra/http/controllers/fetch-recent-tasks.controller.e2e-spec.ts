@@ -41,13 +41,11 @@ describe('Fetch recent Tasks (E2E)', () => {
     await prisma.tasks.createMany({
       data: [
         {
-          title: 'Task 01',
-          content: 'task 01',
+          content: 'Task 01',
           authorId: user.id,
         },
         {
-          title: 'Task 02',
-          content: 'task 02',
+          content: 'Task 02',
           authorId: user.id,
         },
       ],
@@ -64,8 +62,8 @@ describe('Fetch recent Tasks (E2E)', () => {
 
     expect(response.body).toEqual({
       tasks: [
-        expect.objectContaining({ title: 'Task 01' }),
-        expect.objectContaining({ title: 'Task 02' }),
+        expect.objectContaining({ content: 'Task 01' }),
+        expect.objectContaining({ content: 'Task 02' }),
       ],
     })
   })

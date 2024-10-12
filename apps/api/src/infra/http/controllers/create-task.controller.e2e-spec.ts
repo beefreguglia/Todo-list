@@ -40,14 +40,12 @@ describe('Create Task (E2E)', () => {
 
     const access_token = JWT.sign({ sub: user.id })
 
-    const title = 'New task title'
     const content = 'Task content'
 
     const response = await request(app.getHttpServer())
       .post('/tasks')
       .set('Authorization', `Bearer ${access_token}`)
       .send({
-        title,
         content,
       })
 
@@ -55,7 +53,7 @@ describe('Create Task (E2E)', () => {
 
     const taskOnDatabase = await prisma.tasks.findFirst({
       where: {
-        title,
+        content,
       },
     })
 

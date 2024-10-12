@@ -15,7 +15,6 @@ import { JwtAuthGuard } from '@/infra/auth/jwt-auth.guard'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
 const updateTaskBodySchema = z.object({
-  title: z.string(),
   content: z.string(),
 })
 
@@ -43,7 +42,7 @@ export class UpdateTaskController {
     @Param(paramValidationPipe) param: UpdateTaskParamSchema,
     @CurrentUser() user: UserPayload,
   ) {
-    const { content, title } = body
+    const { content } = body
     const { id } = param
     const { sub: userId } = user
 
@@ -52,7 +51,6 @@ export class UpdateTaskController {
       authorId: userId,
       content,
       finishedAt: null,
-      title,
     })
   }
 }

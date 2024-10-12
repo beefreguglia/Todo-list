@@ -40,7 +40,6 @@ describe('Update Task (E2E)', () => {
 
     const task = await prisma.tasks.create({
       data: {
-        title: 'Task 01',
         content: 'task 01',
         authorId: user.id,
       },
@@ -52,7 +51,6 @@ describe('Update Task (E2E)', () => {
       .put(`/tasks/${task.id}`)
       .set('Authorization', `Bearer ${access_token}`)
       .send({
-        title: 'Updated Task 01',
         content: 'Updated content',
       })
 
@@ -67,7 +65,6 @@ describe('Update Task (E2E)', () => {
 
     expect(taskOnDatabase).toEqual(
       expect.objectContaining({
-        title: 'Updated Task 01',
         content: 'Updated content',
       }),
     )

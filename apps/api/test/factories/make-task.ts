@@ -10,7 +10,6 @@ export function makeTask(
   const task = Task.create(
     {
       authorId: new UniqueEntityID(),
-      title: faker.lorem.sentence(),
       content: faker.lorem.text(),
       ...override,
     },

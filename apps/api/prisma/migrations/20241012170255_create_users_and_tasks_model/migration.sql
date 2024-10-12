@@ -11,7 +11,6 @@ CREATE TABLE "users" (
 -- CreateTable
 CREATE TABLE "tasks" (
     "id" TEXT NOT NULL,
-    "title" TEXT NOT NULL,
     "content" TEXT NOT NULL,
     "finished_at" TIMESTAMP(3),
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,

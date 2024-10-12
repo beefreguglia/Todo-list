@@ -30,14 +30,11 @@ describe('Edit Task', () => {
     await sut.execute({
       taskId: newTask.id.toValue(),
       authorId: 'author-1',
-      title: 'Task teste',
-      content: 'Conteúdo teste',
-      attachmentsIds: ['1', '3'],
+      content: 'Task teste',
     })
 
     expect(inMemoryTasksRepository.items[0]).toMatchObject({
-      title: 'Task teste',
-      content: 'Conteúdo teste',
+      content: 'Task teste',
     })
   })
 
@@ -54,9 +51,7 @@ describe('Edit Task', () => {
     const result = await sut.execute({
       taskId: newTask.id.toValue(),
       authorId: 'author-2',
-      title: 'Task teste',
-      content: 'Conteúdo teste',
-      attachmentsIds: [],
+      content: 'Task teste',
     })
 
     expect(result.isLeft()).toBe(true)

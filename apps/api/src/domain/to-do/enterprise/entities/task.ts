@@ -4,7 +4,6 @@ import { Optional } from '@/core/types/optional'
 
 export interface TaskProps {
   authorId: UniqueEntityID
-  title: string
   content: string
   createdAt: Date
   updatedAt?: Date | null
@@ -14,16 +13,6 @@ export interface TaskProps {
 export class Task extends AggregateRoot<TaskProps> {
   get authorId() {
     return this.props.authorId
-  }
-
-  get title() {
-    return this.props.title
-  }
-
-  set title(title: string) {
-    this.props.title = title
-
-    this.touch()
   }
 
   get content() {

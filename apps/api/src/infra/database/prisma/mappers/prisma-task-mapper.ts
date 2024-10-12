@@ -7,7 +7,6 @@ export class PrismaTaskMapper {
   static toDomain(raw: PrismaTask): Task {
     return Task.create(
       {
-        title: raw.title,
         content: raw.content,
         authorId: new UniqueEntityID(raw.authorId),
         createdAt: raw.createdAt,
@@ -22,7 +21,6 @@ export class PrismaTaskMapper {
     return {
       id: task.id.toString(),
       content: task.content,
-      title: task.title,
       createdAt: task.createdAt,
       updatedAt: task.updatedAt,
       finishedAt: task.finishedAt,

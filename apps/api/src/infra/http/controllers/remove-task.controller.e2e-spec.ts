@@ -40,7 +40,6 @@ describe('Remove Task (E2E)', () => {
 
     const task = await prisma.tasks.create({
       data: {
-        title: 'Task 01',
         content: 'task 01',
         authorId: user.id,
       },

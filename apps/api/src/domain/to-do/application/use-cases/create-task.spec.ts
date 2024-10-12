@@ -15,7 +15,6 @@ describe('Create Task', () => {
   it('should be able to create a task', async () => {
     const result = await sut.execute({
       authorId: '1',
-      title: 'Nova Task',
       content: 'Conteúdo da Task',
     })
 

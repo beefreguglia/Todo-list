@@ -26,7 +26,6 @@ model User {
 
 model Tasks {
   id         String    @id @default(uuid())
-  title      String
   content    String
   finishedAt DateTime? @map("finished_at")
   createdAt  DateTime  @default(now()) @map("created_at")

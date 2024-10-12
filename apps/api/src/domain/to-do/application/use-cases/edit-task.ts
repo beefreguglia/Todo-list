@@ -10,9 +10,8 @@ import { TasksRepository } from '../repositories/tasks-repository'
 interface EditTaskUseCaseRequest {
   authorId: string
   taskId: string
-  title: string
   content: string
-  finishedAt: Date | null | undefined
+  finishedAt?: Date | null | undefined
 }
 
 type EditTaskUseCaseResponse = Either<
@@ -29,7 +28,6 @@ export class EditTaskUseCase {
   async execute({
     authorId,
     taskId,
-    title,
     content,
     finishedAt,
   }: EditTaskUseCaseRequest): Promise<EditTaskUseCaseResponse> {
@@ -43,7 +41,6 @@ export class EditTaskUseCase {
       return left(new NotAllowedError())
     }
 
-    task.title = title
     task.content = content
     task.finishedAt = finishedAt
 
