@@ -1,4 +1,4 @@
-import { DotsThreeVertical, Pencil, Trash } from '@phosphor-icons/react'
+import { DotsThreeVertical, Trash } from '@phosphor-icons/react'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
@@ -6,6 +6,8 @@ import { toast } from 'sonner'
 
 import { deleteTask } from '@/api/deleteTask'
 import { queryClient } from '@/lib/react-query'
+
+import { EditTaskButton } from './edit-task-tutton'
 
 interface OptionsButtonProps {
   id: string
@@ -42,9 +44,8 @@ export function OptionsButton({ id }: OptionsButtonProps) {
 
       <DropdownMenu.Portal>
         <DropdownMenu.Content className="flex flex-col gap-1 overflow-hidden rounded-lg border border-slate-950 bg-slate-800 p-1 shadow-md shadow-slate-800">
-          <DropdownMenu.Item className="flex w-full cursor-pointer items-center gap-2 rounded-md p-2 text-slate-200 hover:bg-slate-950">
-            <Pencil weight="bold" className="h-4 w-4" />
-            Editar
+          <DropdownMenu.Item asChild>
+            <EditTaskButton id={id} />
           </DropdownMenu.Item>
           <DropdownMenu.Item
             onClick={() => handleDeleteTask(id)}
