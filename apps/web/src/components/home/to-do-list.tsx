@@ -52,7 +52,7 @@ export function TodoList() {
   return (
     <>
       <FormProvider {...methods}>
-        <form className="flex max-h-[80vh] flex-col gap-2 overflow-y-auto">
+        <form className="flex max-h-[70vh] flex-col gap-2 overflow-y-auto lg:max-h-[80vh]">
           {fields &&
             fields.map(
               (

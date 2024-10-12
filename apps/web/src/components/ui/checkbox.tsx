@@ -18,17 +18,18 @@ export function Checkbox({ label, ...rest }: CheckboxProps) {
   }
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex flex-1 items-center gap-2">
       <CheckboxPrimitive.Root className={className} {...rest}>
         <CheckboxPrimitive.Indicator>
           <Check className="h-3 w-3" weight="bold" />
         </CheckboxPrimitive.Indicator>
       </CheckboxPrimitive.Root>
+
       <Label
         className={rest.checked ? 'line-through' : undefined}
         htmlFor={rest.id}
       >
-        {label}
+        <span className="text-xs lg:text-base">{label}</span>
       </Label>
     </div>
   )

@@ -53,7 +53,7 @@ export function Task({ task }: TaskProps) {
 
   return (
     <div className="w-[99%] rounded-md bg-slate-950 p-3 text-slate-100">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-1 items-center justify-between">
         <Controller
           name={`tasks.${task.fieldIndex}.checked`}
           control={control}
