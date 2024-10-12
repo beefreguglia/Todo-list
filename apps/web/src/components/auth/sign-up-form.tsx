@@ -1,9 +1,14 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowLeft, UserPlus } from '@phosphor-icons/react'
+import { useMutation } from '@tanstack/react-query'
+import axios from 'axios'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { z } from 'zod'
 
+import { signUp } from '@/api/sign-up'
 import { Label } from '@/components/ui/label'
 
 import { Button } from '../ui/button'
@@ -29,8 +34,25 @@ export function SignUpForm() {
     resolver: zodResolver(signUpFormSchema),
   })
 
-  async function handleSignUp({ email, password }: SignUpFormData) {
-    console.log(email, password)
+  const { mutateAsync: createUser } = useMutation({
+    mutationFn: signUp,
+  })
+
+  const router = useRouter()
+
+  async function handleSignUp({ email, password, name }: SignUpFormData) {
+    try {
+      await createUser({ email, password, name })
+      await router.push('/sign-in')
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        const error = err.response?.data
+        toast.error(`${error.statusCode} ${error.error}: ${error.message}`)
+      } else {
+        toast.error('Ocorreu um erro inesperado.')
+        console.error(err)
+      }
+    }
   }
 
   return (

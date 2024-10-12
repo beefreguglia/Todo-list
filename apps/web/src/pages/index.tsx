@@ -1,16 +1,9 @@
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
-
-import { isAuthenticated } from '@/lib/auth'
+import Layout from '@/components/layouts/layout'
 
 export default function Home() {
-  const router = useRouter()
-
-  useEffect(() => {
-    if (!isAuthenticated(null)) {
-      router.push('/sign-in')
-    }
-  }, [router])
-
-  return <h1>Hello World</h1>
+  return (
+    <Layout>
+      <div>teste</div>
+    </Layout>
+  )
 }

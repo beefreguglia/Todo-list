@@ -3,6 +3,7 @@ import { Plus, SignIn } from '@phosphor-icons/react'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
@@ -35,11 +36,14 @@ export function SignInForm() {
     mutationFn: signIn,
   })
 
+  const router = useRouter()
+
   async function handleSignIn({ email, password }: SignInFormData) {
     try {
       const { access_token } = await authenticate({ email, password })
 
       setAuthTokenCookie(null, access_token)
+      await router.push('/')
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
         const error = err.response?.data

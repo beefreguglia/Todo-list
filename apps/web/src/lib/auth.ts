@@ -22,7 +22,7 @@ export function getAuthTokenCookie(
 }
 
 export function removeAuthTokenCookie(ctx: NextPageContext | null): void {
-  destroyCookie(ctx, 'token', {
+  destroyCookie(ctx, 'todo-token', {
     path: '/',
   })
 }
