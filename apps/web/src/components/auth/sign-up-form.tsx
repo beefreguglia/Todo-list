@@ -43,6 +43,7 @@ export function SignUpForm() {
   async function handleSignUp({ email, password, name }: SignUpFormData) {
     try {
       await createUser({ email, password, name })
+      toast.success('Usuário criado com sucesso!')
       await router.push('/sign-in')
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {

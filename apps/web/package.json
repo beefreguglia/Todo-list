@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "pnpm env:load next dev",
+    "dev:test": "pnpm env:load next dev -p 50789",
     "build": "pnpm env:load next build",
     "start": "pnpm env:load next start",
     "lint": "pnpm env:load next lint",
@@ -19,7 +20,6 @@
     "@radix-ui/react-label": "^2.1.0",
     "@tanstack/react-query": "^5.59.11",
     "axios": "^1.7.7",
-    "jsonwebtoken": "^9.0.2",
     "next": "14.2.15",
     "nookies": "^2.5.2",
     "react": "^18",
@@ -33,20 +33,15 @@
     "@bf-to-do/eslint-config": "workspace:*",
     "@bf-to-do/prettier": "workspace:*",
     "@bf-to-do/ts-config": "workspace:*",
-    "@testing-library/jest-dom": "^6.5.0",
-    "@testing-library/react": "^16.0.1",
-    "@types/jsonwebtoken": "^9.0.7",
+    "@playwright/test": "^1.48.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "dotenv": "^16.4.5",
     "dotenv-cli": "^7.4.2",
-    "happy-dom": "^15.7.4",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5",
-    "unplugin-swc": "^1.5.1",
-    "vitest": "^2.1.2"
+    "typescript": "^5"
   },
   "prettier": "@bf-to-do/prettier",
   "eslintConfig": {
