@@ -14,10 +14,12 @@ export interface GetTasksResponse {
 }
 
 interface getTasksParams {
-  page: number
+  page?: number
 }
 
-export async function getTasks({ page }: getTasksParams): Promise<TaskData[]> {
+export async function getTasks({
+  page = 1,
+}: getTasksParams): Promise<TaskData[]> {
   const response = await api.get<GetTasksResponse>('/tasks', {
     params: {
       page,

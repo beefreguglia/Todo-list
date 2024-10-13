@@ -33,6 +33,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         Authorization: `Bearer ${todoToken}`,
       },
     })
+
     const { tasks } = response.data
     return {
       props: {
