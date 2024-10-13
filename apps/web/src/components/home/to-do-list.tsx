@@ -1,8 +1,7 @@
-import { useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form'
 
-import { getTasks, TaskData } from '@/api/getTasks'
+import { TaskData } from '@/api/getTasks'
 import { Task } from '@/components/home/task'
 
 interface TaskWithChecked {
@@ -14,12 +13,11 @@ interface TaskWithChecked {
   checked: boolean
 }
 
-export function TodoList() {
-  const { data: tasks } = useQuery<TaskData[]>({
-    queryKey: ['tasks', 0],
-    queryFn: () => getTasks({ page: 1 }),
-  })
+interface TodoListProps {
+  tasks: TaskData[]
+}
 
+export function TodoList({ tasks }: TodoListProps) {
   const methods = useForm({
     defaultValues: {
       tasks: [] as TaskWithChecked[],
@@ -52,7 +50,7 @@ export function TodoList() {
   return (
     <>
       <FormProvider {...methods}>
-        <form className="flex max-h-[70vh] flex-col gap-2 overflow-y-auto lg:max-h-[80vh]">
+        <form className="flex max-h-[80vh] flex-col gap-2 overflow-y-auto">
           {fields &&
             fields.map(
               (

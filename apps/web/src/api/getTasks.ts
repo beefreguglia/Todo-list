@@ -23,6 +23,5 @@ export async function getTasks({ page }: getTasksParams): Promise<TaskData[]> {
       page,
     },
   })
-
   return response.data.tasks
 }
