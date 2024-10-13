@@ -17,6 +17,8 @@
   - Backend: 
   - Acesse a pasta da API localizada em ./apps/api
   - Rode pnpm run tests ou pnpm run tests:e2e
+  - Frontend:
+  - pnpm playwright test --ui
 
 ## 💻 Tecnologias
 
@@ -40,6 +42,7 @@
 - Phosphor-icons
 - @tanstack/react-query
 - Nookies
+- Playwright
 
 ## Requisitos funcionais
 
@@ -62,7 +65,3 @@
 - [x] Devemos utilizar Nest junto do Prisma ORM para o back-end;
 - [x] Devemos utilizar Next para o front-end utilizando SSG ou SSR;
 
-
-
-`openssl genpkey -algorithm RSA -out private_key.pem -pkeyopt rsa_keygen_bits:2048`
-`openssl rsa -pubout -in private_key.pem -out public_key.pem`
