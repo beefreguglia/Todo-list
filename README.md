@@ -2,6 +2,22 @@
 
 > Esse projeto é referente ao desenvolvimento de aplicação Full-Stack simples de gerenciamento de tarefas (To-Do-List).
 
+## ⚙️ Como rodar o projeto
+  - Primeiro: Utilize o comando pnpm install na raiz do projeto
+    Como foi utilizado o pnpm workspaces para fazer a estrutura de monorepo
+    (Link para instalação: https://pnpm.io/installation)
+
+  - Segundo: Utilize o comando docker-compose up -d para preparar o banco de dados utilizando docker
+  - Terceiro: Popule o arquivo .env na raiz do projeto com as informações do .env.example
+  - Quarto: Acesse a pasta da API localizada em ./apps/api
+  - Quinto: Utilize o comando pnpm run db:migrate para criar as migrations no seu banco de dados
+  - Volte para raiz e utilize o comando pnpm run dev para rodar o projeto
+  
+## ⚙️ Comando testes
+  - Backend: 
+  - Acesse a pasta da API localizada em ./apps/api
+  - Rode pnpm run tests ou pnpm run tests:e2e
+
 ## 💻 Tecnologias
 
 - Node.Js

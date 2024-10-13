@@ -52,7 +52,6 @@ export class PrismaTasksRepository implements TasksRepository {
 
   async create(task: Task): Promise<void> {
     const data = PrismaTaskMapper.toPrisma(task)
-
     await this.prisma.tasks.create({
       data,
     })
